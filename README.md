@@ -21,6 +21,11 @@ To install and setup AWS CLI, folow this steps --> [AWS CLI](https://docs.aws.am
 
 To deploy it, you will need Terraform binaries and AWS CLI up and running in your environment, do not forget to see the files, check names and variables, and then, realy simple:
 
+Get the code
+```bash
+git clone https://github.com/glaucius/aws-waf-terraform-advanced-rules.git 
+```
+
 Init your terraform flow
 ```bash
 terraform init
@@ -73,3 +78,7 @@ If you need assistance or have any questions, we're here to help! Check out the 
 - **Issues**: If you encounter any bugs or have feature requests, please open an [issue](https://github.com/glaucius/aws-waf-terraform-advanced-rules/issues) on our GitHub repository.
 
 Feel free to reach out if you have any questions or concerns. I value your feedback and I'm dedicated to making your experience with my rules as smooth as possible.
+
+Btw, you can also reach out me using my email, glaucius at gmail.com.
+
+Thanks a lot !!!
