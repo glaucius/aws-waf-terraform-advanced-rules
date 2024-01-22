@@ -4,12 +4,6 @@
 
 [AWS Waf Advanced Rules with Terraform](https://github.com/glaucius/aws-waf-terraform-advanced-rules) is just a place where you can find some awesome and complex rules to AWS WAF, written on top of Terraform, in order to automate your WAF rules to AWS. It is based on a sigle rule group, but I suggest you to split your rules into groups, to allow it to be used as much granularity as possible.
 
-## Table Of Content
-
-- [Installation](#installation)
-    - [Terraform](#terraform)
-    - [AWS CLI](#awscli)
-
 ## Installation
 
 If you already have Terraform and AWS CLI proper configured and running, you don't need anything else to move forward.
@@ -28,22 +22,24 @@ To install and setup AWS CLI, folow this steps --> [AWS CLI](https://docs.aws.am
 To deploy it, you will need Terraform binaries and AWS CLI up and running in your environment, do not forget to see the files, check names and variables, and then, realy simple:
 
 Init your terraform flow
-```
+```bash
 terraform init
 ```
+
 Plan your deployment
-```
+```bash
 terraform plan
 ```
+
 Apply your deployment
-```
+```bash
 terraform apply -auto-approve
 ```
 
 ### Destroy
 
-Just run this command:
-```
+Just run this command to distroy all stack:
+```bash
 terraform destroy
 ```
 
@@ -51,22 +47,29 @@ terraform destroy
 
 ## Rule AWSRateBasedRuleDomesticDOS
 
-Priority: 1
-Action: Block requests that match the rule, in this case the rule blocks requests from a single IP address, that comes from Brazil if they are higher than 2000 requests per 5 minutes range of time.
-Statement:
-Rate-Based Statement: Limit requests to 2000 per IP within a specified time window.
-Scope Down Statement: Allow requests only from Brazil (country code "BR").
-Visibility Configuration: Enable CloudWatch metrics with the specified metric name and enable sampling of requests.
+Block requests that match the rule, in this case the rule blocks requests from a single IP address, that comes from Brazil if they are higher than 2000 requests per 5 minutes range of time.
+
+* Block all requests that goes higher than 2000 per 5 minutes
+* It works only when the request comes from Brazil
+* Enables visibility on AWS CloudWatch metrics
 
 ## Rule AWSRateBasedRulePerFqdnorServiceAndDomesticDOS
 
-Rule Name: AWSRateBasedRulePerFqdnorServiceAndDomesticDOS
-Priority: 2
-Action: Block requests that match the rule, in this case the rule blocks request from a single IP address, that comes from Brazil and uses "app.foo.bar" as a hostname, considering the Host header as value to be matched. If the amount of requests are higher than 500 during 5 minutes, well, it will block the source IP address.
-Statement:
-Rate-Based Statement: Limit requests to 500 per IP within a specified time window.
-Scope Down Statement:
-Geo Match Statement: Allow requests only from Brazil (country code "BR").
-AND Statement:
-Byte Match Statement: Block requests containing "app.foo.bar" in the specified header.
-Visibility Configuration: Enable CloudWatch metrics with the specified metric name and enable sampling of requests.
+It does almost the same than the previus rule, but it has another statement that demands a match between 'host' header and a string. So, it blocks requests when it is higher than 500 requests, needs to match country code with Brazil and 'app.foo.bar' as hostaname or fqdn.
+
+* Block all requests that goes higher than 500 per 5 minutes
+* It works only when the request comes from Brazil
+* Need to match host header with value 'app.foo.bar'
+* Enables visibility on AWS CloudWatch metrics
+
+## License
+
+This project is distributed under the GPL v3 License. See the LICENSE file for more details.
+
+## Help
+
+If you need assistance or have any questions, we're here to help! Check out the following resources:
+
+- **Issues**: If you encounter any bugs or have feature requests, please open an [issue](https://github.com/glaucius/aws-waf-terraform-advanced-rules/issues) on our GitHub repository.
+
+Feel free to reach out if you have any questions or concerns. I value your feedback and I'm dedicated to making your experience with my rules as smooth as possible.
